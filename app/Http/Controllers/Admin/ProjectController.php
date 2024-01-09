@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Models\Type;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 
 class ProjectController extends Controller
@@ -17,7 +18,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::limit(20)->get();
-        $types = Type::all();
+        $types = Type::orderBy('name', 'ASC')->get();
 
         return view('admin.projects.index', compact('projects', 'types'));
     }
@@ -27,7 +28,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::orderBy('name', 'ASC')->get();
+
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -35,7 +38,12 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        dd($request->validated());
+        // $data['slug'] = Str::slug($data['title'], '-');
+
+        // $new_project = Project::create($data);
+
+        // return redirect()->route('admin.projects.show', $new_project);
     }
 
     /**
@@ -51,7 +59,11 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+
+        $types = Type::orderBy('name', 'ASC')->get();
+
+
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -59,7 +71,6 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
     }
 
     /**
