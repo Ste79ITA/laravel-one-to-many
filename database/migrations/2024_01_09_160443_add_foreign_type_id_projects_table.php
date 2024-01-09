@@ -15,7 +15,7 @@ return new class extends Migration
             // Aggiunta colonna tabella
             $table->unsignedBigInteger('type_id')->nullable()->after('id');
             // Aggiunta vincolo
-            $table->foreign('type_id')->references('id')->on('types')->onDelete('set null')->onUpdate('');
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('set null')->onUpdate('cascade');
         });
     }
 
@@ -25,7 +25,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('projects', function (Blueprint $table) {
-            //
+            // rimuovere vincolo
+            $table->dropForeign(['type_id']);
+            // rimuovere colonna type_id
+            $table->dropColumn('type_id');
         });
     }
 };

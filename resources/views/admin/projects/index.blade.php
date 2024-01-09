@@ -4,6 +4,7 @@
 <section>
     <div class="container">
         <h1>Projects Index</h1>
+        <span><a class="btn btn-primary btn-sm" href="{{ route('admin.projects.create') }}">Create a new project</a></span>
     </div>
 </section>
 <section>
