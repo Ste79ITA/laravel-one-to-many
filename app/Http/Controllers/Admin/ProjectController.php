@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\Type;
 use App\Http\Controllers\Controller;
 
 
@@ -16,8 +17,9 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::limit(20)->get();
+        $types = Type::all();
 
-        return view('admin.projects.index', compact('projects'));
+        return view('admin.projects.index', compact('projects', 'types'));
     }
 
     /**

@@ -13,9 +13,9 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Type</th>
                     <th>Title</th>
                     <th>Slug</th>
-                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -24,6 +24,7 @@
                     
                 <tr>
                     <td>{{ $project->id }}</td>
+                    <td>{{ optional($project->type)->name }}</td>
                     <td>
                         <a href="{{ route('admin.projects.show', $project) }}">{{ $project->title }}</a>
                     </td>
