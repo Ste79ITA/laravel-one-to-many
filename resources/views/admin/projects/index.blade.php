@@ -33,7 +33,7 @@
                         <a href="{{ route('admin.projects.edit', $project) }}">edit</a>
                     </td>
                     <td>
-                        <form action="{{ route('admin.projects.destroy', $project) }}">
+                        <form action="{{ route('admin.projects.destroy', $project) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         
