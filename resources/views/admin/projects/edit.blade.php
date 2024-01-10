@@ -12,18 +12,31 @@
     
     <form action="{{ route('admin.projects.store') }}" method="POST">
     @csrf
+
     <div class="mb-3">
         <label for="type_id" class="form-label">Type</label>
         <select name="type_id" id="type_id" class="form-select" aria-label="Type">
 
-            <option selected>Select Type</option>
+            <option value="" selected>Select Type</option>
             
             @foreach ($types as $type)
-            <option @selected( old('type_id') == $type->id) value="{{ $type->id }}">{{ $type->name }}</option>
+            <option @selected( old( 'type_id', optional($project->type)->id ) == $type->id) value="{{ $type->id }}">{{ $type->name }}</option>
             @endforeach
             
         </select>
     </div>
+
+    <div class="mb-3">
+        <div class="form-group">
+           <p>Seleziona le technologie</p>
+           <div class="d-flex flex-wrap gap-3">
+               @foreach($technologies as $technology) 
+               <input name="technologies[]" type="checkbox" class="form-check-input" value="{{ $technology->id }}" id="technology-{{ $technology->id }}" @checked( in_array($technology->id, old('technologies', $project->technologies->pluck('id')->all())))>
+               <label for="technology-{{ $technology->id }}" class="form-check-label">{{ $technology->name }}</label>
+               @endforeach
+           </div>
+        </div>
+   </div>
 
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -32,7 +45,7 @@
 
       <div class="mb-3">
         <label for="content" class="form-label">Content</label>
-        <textarea class="form-control"  id="content" rows="3" placeholder="Content" name="content" value="{{$project->content}}"></textarea>
+        <textarea class="form-control"  id="content" rows="3" placeholder="Content" name="content" >{{ old('content',$project->content) }}</textarea>
       </div>
       
       <button type="submit" class="btn btn-primary">Save</button>

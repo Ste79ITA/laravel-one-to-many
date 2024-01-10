@@ -19,7 +19,7 @@
             <option value="" selected>Select Type</option>
             
             @foreach ($types as $type)
-            <option @selected( old('type_id') == $type->id) value="{{ $type->id }}">{{ $type->name }}</option>
+            <option @selected( old( 'type_id' ) == $type->id) value="{{ $type->id }}">{{ $type->name }}</option>
             @endforeach
             
         </select>
@@ -44,7 +44,7 @@
 
       <div class="mb-3">
         <label for="content" class="form-label">Descrizione</label>
-        <textarea class="form-control"  id="content" rows="3" placeholder="Content" name="content" value="{{old('content'), 'content'}}"></textarea>
+        <textarea class="form-control"  id="content" rows="3" placeholder="Content" name="content" >{{old('content')}}</textarea>
       </div>
       
       <button type="submit" class="btn btn-primary">Save</button>
