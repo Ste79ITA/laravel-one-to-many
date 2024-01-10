@@ -10,7 +10,7 @@
     <div class="container">
 
     
-    <form action="{{ route('admin.projects.store') }}" method="POST">
+    <form action="{{ route('admin.projects.store', $project) }}" method="POST">
     @csrf
     <div class="mb-3">
         <label for="type_id" class="form-label">Type</label>
