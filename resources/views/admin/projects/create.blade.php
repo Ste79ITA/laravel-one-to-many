@@ -10,13 +10,13 @@
     <div class="container">
 
     
-    <form action="{{ route('admin.projects.store', $project) }}" method="POST">
+    <form action="{{ route('admin.projects.store') }}" method="POST">
     @csrf
     <div class="mb-3">
         <label for="type_id" class="form-label">Type</label>
         <select name="type_id" id="type_id" class="form-select" aria-label="Type">
 
-            <option selected>Select Type</option>
+            <option value="" selected>Select Type</option>
             
             @foreach ($types as $type)
             <option @selected( old('type_id') == $type->id) value="{{ $type->id }}">{{ $type->name }}</option>
@@ -24,6 +24,18 @@
             
         </select>
     </div>
+
+        <div class="mb-3">
+             <div class="form-group">
+                <p>Seleziona le technologie</p>
+                <div class="d-flex flex-wrap gap-3">
+                    @foreach($technologies as $technology) 
+                    <input name="technologies[]" type="checkbox" class="form-check-input" value="{{ $technology->id }}" id="technology-{{ $technology->id }}" @checked( in_array($technology->id, old('technologies',[])))>
+                    <label for="technology-{{ $technology->id }}" class="form-check-label">{{ $technology->name }}</label>
+                    @endforeach
+                </div>
+             </div>
+        </div>
 
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>

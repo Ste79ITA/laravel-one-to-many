@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 
@@ -17,7 +18,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::limit(20)->get();
+        $projects = Project::all();
         $types = Type::orderBy('name', 'ASC')->get();
 
         return view('admin.projects.index', compact('projects', 'types'));
@@ -29,8 +30,9 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::orderBy('name', 'ASC')->get();
+        $technologies = Technology::orderBy('name', 'ASC')->get();
 
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -62,9 +64,10 @@ class ProjectController extends Controller
     {
 
         $types = Type::orderBy('name', 'ASC')->get();
+        $technologies = Technology::orderBy('name', 'ASC')->get();
 
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -78,7 +81,7 @@ class ProjectController extends Controller
 
         $project->update($data);
 
-        return redirect()->route('admin.projects.show', compact('project'));
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**

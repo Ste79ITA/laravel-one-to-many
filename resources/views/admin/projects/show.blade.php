@@ -13,7 +13,14 @@
                 </form>  
         </div>
         <h1>{{ $project->title }}</h1>
+        
         <h2>{{ optional($project->type)->name }}</h2>
+        
+        <ul class="d-flex gap-3 mb-3">
+            @foreach ($project->technologies as $technology )
+            <li class="badge rounded-pill text-bg-primary">{{ $technology->name }}</li>
+            @endforeach
+        </ul>
     </div>
 </section>
 <section>
