@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 use Illuminate\Support\Str;
 
 class ProjectSeeder extends Seeder
@@ -20,6 +21,9 @@ class ProjectSeeder extends Seeder
         $types = Type::all();
         $ids = $types->pluck('id');
 
+        $technologies = Technology::all();
+        $technologyIds = $technologies->pluck('id');
+
         for ($i = 0; $i < 100; $i++) {
             $new_project = new Project();
 
@@ -27,6 +31,8 @@ class ProjectSeeder extends Seeder
             $new_project->content = $faker->text(500);
             $new_project->slug = Str::slug($new_project->title, '-');
             $new_project->type_id = $faker->optional()->randomElement($ids);
+            $new_project->technology_id = $faker->optional()->randomElement($technologyIds);
+
             $new_project->save();
         }
     }
