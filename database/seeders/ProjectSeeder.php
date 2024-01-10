@@ -31,9 +31,9 @@ class ProjectSeeder extends Seeder
             $new_project->content = $faker->text(500);
             $new_project->slug = Str::slug($new_project->title, '-');
             $new_project->type_id = $faker->optional()->randomElement($ids);
-            $new_project->technology_id = $faker->optional()->randomElement($technologyIds);
 
             $new_project->save();
+            $new_project->technologies()->attach($faker->randomElements($technologyIds, null));
         }
     }
 }
