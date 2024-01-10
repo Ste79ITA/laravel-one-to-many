@@ -44,9 +44,13 @@ class ProjectController extends Controller
 
         $data['slug'] = Str::slug($data['title'], '-');
 
-        $new_project = Project::create($data);
+        $project = Project::create($data);
 
-        return redirect()->route('admin.projects.show', $new_project);
+        if ($request->has('technologies')) {
+            $project->technologies()->attach($data['technologies']);
+        }
+
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**
